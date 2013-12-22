@@ -23,6 +23,18 @@ footer to the bottom of the page.
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'coins/css/style.css' %}" />
     <script src="{% static 'coins/js/jquery-1.7.2.js' %}"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript"
+	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3ClsJ2QyR_ESDg4B9Fc4_4fGNhcotRM&sensor=false">
+    </script>
+    
+    {% block load_css %}{% endblock %}
+    {% block load_js %}{% endblock %}
+    
+    
     <title>
       {% block title %}
       Art2Artifact - Dartmouth Classics Department Coin Database
@@ -67,7 +79,7 @@ footer to the bottom of the page.
 		<li><a href="#">My Corpora</a></li>
 		<li><a href="#">My Coins</a></li>
 		<li class="divider"></li>
-		<li><a href="#">Separated link</a></li>
+		<li><a href="/admin/">Admin Site</a></li>
               </ul>
 	    </li>
 	  </ul>

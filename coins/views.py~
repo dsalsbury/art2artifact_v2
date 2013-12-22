@@ -12,9 +12,8 @@ def index(request):
     return render(request, 'coins/index.html', context)
 
 def view_collection(request):
-    coins_list = Coin.objects.all()
     template = loader.get_template('coins/view_collection.html')
-    context = {'coins_list': coins_list} 
+    context = {} 
     return render(request, 'coins/view_collection.html', context)
 
 def coin(request, coin_id):

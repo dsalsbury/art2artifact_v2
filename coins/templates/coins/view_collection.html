@@ -3,10 +3,59 @@
 
 {% block title %}View Collection{% endblock %}
 
+{% block load_js %}
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(42.6387,12.3926),
+          zoom: 5
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+
+      // LOAD COINS MAP MARKERS
+      {% if coins_list %}
+          {% for coin in coins_list %}
+          {% if coin.find_location.lon %}
+          var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+	  '<a href="{% url 'detail' coin.id %}">'+
+          '<h1 id="firstHeading" class="firstHeading">'+
+	  '{{ coin.title }}</h1>'+
+	  '</a>'+
+          '<div id="bodyContent">'+
+          '<p><b>{{ coin.obverse_legend }}</b></p>'
+	  '</div>'+
+	'</div>';
+
+      var infowindow = new google.maps.InfoWindow({
+      content: contentString
+      }); 
+      
+      var marker = new google.maps.Marker({
+      position: new google.maps.LatLng({{ coin.find_location.lat }}, {{ coin.find_location.lon }}),
+      map: map,
+      });
+      
+      google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+      });
+    
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+{% endblock %}
+
 {% block content %}
 
 <div id="the_viewer" class="well">
-
+  <div id="map-canvas"/>
 </div>
 
 {% endblock %}

@@ -55,5 +55,9 @@ body {
   height: 80%;
   width: 90%;
   margin-left: 5%;
-  
+  padding: 0;
+}
+
+#map-canvas { 
+  height: 100%;
 }
