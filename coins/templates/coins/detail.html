@@ -1,3 +1,58 @@
-<h1>{{ coin.title }}</h1>
+{% extends "coins/base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ coin.title }} - Detail{% endblock %}
+
+{% block load_map %}
+
+      // LOAD COINS MAP MARKERS
+      {% if coin %}
+      find_loc = new google.maps.LatLng({{ coin.find_location.lat }}, {{ coin.find_location.lon }});
+      mint_loc = new google.maps.LatLng({{ coin.mint_location.lat }}, {{ coin.mint_location.lon }});
+      
+      bounds.extend(find_loc);
+      bounds.extend(mint_loc);
+
+      var find_marker = new google.maps.Marker({
+      position: find_loc,
+      map: map,
+      title: 'Find Location',
+      });
+
+      var mint_marker = new google.maps.Marker({
+      position: mint_loc,
+      map: map,
+      title: 'Mint Location',
+      });
+
+      {% endif %}
+
+
+      map.fitBounds(bounds);
+
+{% endblock %}
+
+{% block content %}
+<div class="well col-md-3" style="height: 80%;">
+  <h1>{{ coin.title }}</h1>
+
+  <p><b>Date:</b> {{ coin.date_start }}-{{ coin.date_end }}</p>
+  <p><b>Denomination:</b> {{ coin.denomination }}</p>
+  <p><b>Minting Authority:</b> {{ coin.minting_authority }}</p>
+  <p><b>Minted:</b> {{ coin.mint_location.name }}</p>
+  <p><b>Found:</b> {{ coin.find_location.name }}</p>
+  <p><b>Obverse Legend:</b> {{ coin.obverse_legend }}</p>
+  <p><b>Reverse Legend:</b> {{ coin.reverse_legend }}</p>
+
+  <br>
+  <br>
+  
+  <p><b>Bibliography:</b> {{ coin.bibliography }}</p>
+</div>
+
+<div class="well col-md-8" style="height: 80%; margin-left: 40px; padding: 0;">
+  <div id="map-canvas"/>
+</div>
 
 {% if error_message %}<p><strong>{{ error_messgae }}</strong></p>{% endif %}
+{% endblock %}

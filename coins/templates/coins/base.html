@@ -35,6 +35,48 @@ footer to the bottom of the page.
     {% block load_js %}{% endblock %}
     
     
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          zoom: 5,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          streetViewControl: false,
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
+
+      var stylesArray = [ 
+       { featureType: "road", stylers: [ { visibility: "off" } ] },
+      ];
+ 
+      map.setOptions({styles: stylesArray });
+
+      var bounds = new google.maps.LatLngBounds();
+
+      {% block load_map %}{% endblock %}
+
+      
+      map.fitBounds(bounds);
+
+      // This is needed to set the zoom after fitbounds, 
+      google.maps.event.addListener(map, 'zoom_changed', function() {
+          zoomChangeBoundsListener = 
+          google.maps.event.addListener(map, 'bounds_changed', function(event) {
+              if (this.getZoom() > 15 && this.initialZoom == true) {
+                  // Change max/min zoom here
+                  this.setZoom(7);
+                  this.initialZoom = false;
+              }
+              google.maps.event.removeListener(zoomChangeBoundsListener);
+          });
+      });
+      map.initialZoom = true;
+
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+
     <title>
       {% block title %}
       Art2Artifact - Dartmouth Classics Department Coin Database
@@ -42,8 +84,6 @@ footer to the bottom of the page.
     </title>
 </head>
 <body>
-
-<div id="wrap"> 
 
       <!-- NAVBAR -->
       {% block navbar %}
@@ -62,7 +102,7 @@ footer to the bottom of the page.
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse" id="main_navbar">
 	  <ul class="nav navbar-nav">
-	    <li class="active"><a href="#">Home</a></li>
+	    <li><a href="/coins/">Home</a></li>
 	    <li><a href="/coins/view_collection.html">View Collection</a></li>
 	  </ul>
 	  <form class="navbar-form navbar-left" role="search">
@@ -95,12 +135,10 @@ footer to the bottom of the page.
       </div>  
     </div>
     <!-- END main content -->
-    
-</div> <!-- end wrap -->   
+   
     
     <!-- FOOTER -->
-    <div id="footer">
-      <div class="container">
+    <div id="footer" class="navbar-fixed-bottom">
 	<p class="text-muted">
 	  Designed and coded by 
 	  <a href="http://www.cs.dartmouth.edu/~salsbury">Diana Salsbury</a> 

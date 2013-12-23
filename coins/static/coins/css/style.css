@@ -4,10 +4,6 @@ html {
      width: 100%;
 }
 
-li a {
-   color: green;
-}
-
 @font-face {
     font-family: "Trajan_Pro";
     src: url("TrajanPro-Regular.ttf");
@@ -19,33 +15,6 @@ body {
      width: 100%;
      background: white url("../images/background.gif") no-repeat right bottom; 
      font-family: 'Trajan_Pro';
-}
-
-/* Wrapper for page content to push down footer */
-#wrap {
-  min-height: 100%;
-  height: auto;
-  /* Negative indent footer by its height */
-  margin: 0 auto -45px;
-  /* Pad bottom by footer height */
-  padding: 0 0 45px;
-}x
-
-/* Set the fixed height of the footer here */
-#push,
-#footer {
-  height: 45px;
-  background-color: #f5f5f5;
-}
-
-.container {
-  width: auto;
-  padding: 0 15px;
-}
-.container .text-muted {
-  margin: 17.5px 0;
-  font-size: 11px;
-  text-align: center;
 }
 
 #the_viewer {
@@ -60,4 +29,15 @@ body {
 
 #map-canvas { 
   height: 100%;
+}
+
+#content {
+  padding: 0px 20px;
+}
+
+#footer {
+  height: 40px;
+  background-color: #f5f5f5;
+  padding: 12px;
+  text-align: center;
 }
