@@ -1,4 +1,4 @@
-import datetime
+import datetime, boto
 from django.db import models
 from django.utils import timezone
 
@@ -78,8 +78,6 @@ class coin_in_corpus(models.Model):
     coin              = models.ForeignKey(Coin, default="tester")
 
 class Image(models.Model):
-    url               = models.URLField()
-    coin              = models.ForeignKey(Coin, default="tester")
-
-    def __unicode__(self):
-        return self.url
+    coin              = models.ForeignKey(Coin, null=True, blank=True)
+    corpus            = models.ForeignKey(Corpus, null=True, blank=True)
+    image             = models.ImageField(upload_to="images", default="static/coins/images/default_coin_image.jpeg")
