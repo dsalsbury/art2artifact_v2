@@ -2,7 +2,6 @@
 {% load staticfiles %}
 
 {# Load CSS and JavaScript #}
-
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 
@@ -14,23 +13,20 @@ in between.  To use, simply add
     { \% extends "coins/base.html" \% } (without \ and spaces between % and {})
 to the top of any template file.  *NOTE* this must be the FIRST line in the template!
 
-The #wrap div must be placed around everything except the footer.  This is what pushes the 
-footer to the bottom of the page.
 -->
 
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'coins/css/style.css' %}" />
-    <script src="{% static 'coins/js/jquery-1.7.2.js' %}"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <style type="text/css">
 
-    </style>
+    
     <script type="text/javascript"
 	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd3ClsJ2QyR_ESDg4B9Fc4_4fGNhcotRM&sensor=false">
     </script>
-    
+
     {% block load_css %}{% endblock %}
     {% block load_js %}{% endblock %}
     

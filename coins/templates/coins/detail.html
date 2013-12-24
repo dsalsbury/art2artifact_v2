@@ -27,9 +27,6 @@
 
       {% endif %}
 
-
-      map.fitBounds(bounds);
-
 {% endblock %}
 
 {% block content %}
@@ -43,7 +40,8 @@
   <p><b>Found:</b> {{ coin.find_location.name }}</p>
   <p><b>Obverse Legend:</b> {{ coin.obverse_legend }}</p>
   <p><b>Reverse Legend:</b> {{ coin.reverse_legend }}</p>
-
+  <p><b>Image URL:</b> {{ image.image.url }}</p>
+  <img src="{{ image.image.url }}" height=40 width=80 >
   <br>
   <br>
   

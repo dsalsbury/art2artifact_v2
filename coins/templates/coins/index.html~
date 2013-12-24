@@ -12,14 +12,4 @@
     <p>No coins have been added recently.</p>
 {% endif %}
 
-{% if images_list %}
-    <ul>
-      {% for image in images_list %}
-          <li><img src="{{ image.image.url }}" height="40" width="40"></li>
-      {% endfor %}
-    </ul>
-{% else %}
-    <p>No images have been added recently.</p>
-{% endif %}
-
 {% endblock %}
