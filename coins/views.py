@@ -14,10 +14,16 @@ def index(request):
     return render(request, 'coins/index.html', context)
 
 def view_collection(request):
-    coins_list = Coin.objects.all()
+    if 'range' in request.GET:
+        range = request.GET['range'].split(',');
+        coins_list = Coin.objects.filter(date_start__gte=range[0]).filter(date_end__lte=range[1])
+    else:
+        coins_list = Coin.objects.all()
+    
     template = loader.get_template('coins/view_collection.html')
     context = {'coins_list': coins_list} 
     return render(request, 'coins/view_collection.html', context)
+
 
 def coin(request, coin_id):
     coin = get_object_or_404(Coin, id=coin_id)
