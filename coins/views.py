@@ -21,8 +21,8 @@ def view_collection(request):
 
 def coin(request, coin_id):
     coin = get_object_or_404(Coin, id=coin_id)
-    image = Image.objects.get(coin=coin)
+    images_list = Image.objects.filter(coin=coin)
     context = {'coin': coin,
-               'image': image,
+               'images_list': images_list,
                }
     return render(request, 'coins/detail.html', context)

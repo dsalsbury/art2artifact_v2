@@ -1,9 +1,11 @@
+<script src="https://code.jquery.com/jquery.js"></script>
 {% load bootstrap3 %}
 {% load staticfiles %}
 
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
+
 
 <!--
 This is the basic template for all pages on the art2artifact site.  
@@ -19,7 +21,6 @@ to the top of any template file.  *NOTE* this must be the FIRST line in the temp
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'coins/css/style.css' %}" />
-    <script src="https://code.jquery.com/jquery.js"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
     
@@ -32,13 +33,19 @@ to the top of any template file.  *NOTE* this must be the FIRST line in the temp
     
     
     <script type="text/javascript">
+      function check_map_zoom() {
+          if (map.getZoom() > 8) {
+             map.setZoom(7);
+          }
+      }
+
       function initialize() {
         var mapOptions = {
           zoom: 5,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           streetViewControl: false,
         };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
+        map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
 
       var stylesArray = [ 
