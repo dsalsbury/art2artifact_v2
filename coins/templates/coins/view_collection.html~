@@ -1,11 +1,109 @@
 {% extends "coins/base.html" %}
 {% load staticfiles %}
 
+{% block title %}View Collection{% endblock %}
+
+{% block load_js %}
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<script>
+  $(function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: -500,
+      max: 200,
+      values: [-500, 200],
+
+      slide: function( event, ui ) {
+        $( "#range_val" ).val(ui.values[0] + "," + ui.values[1]);
+
+        var start;
+        if (ui.values[0] < 0) { start = Math.abs(ui.values[0]) + " BC"; }
+        else { start = ui.values[0] + " AD";}
+
+        var end;
+        if (ui.values[1] < 0) { end = Math.abs(ui.values[1]) + " BC"; }
+        else { end = ui.values[1] + " AD"; }
+
+        $( "#amount" ).html( start + " - " + end );
+      }
+    });
+
+    var start = Math.abs($("#slider-range").slider("values", 0));
+    $( "#amount" ).html( start + " BC " +
+      " - " + $( "#slider-range" ).slider( "values", 1 ) + " AD ");
+
+    $( "#range_val" ).val($( "#slider-range" ).slider("values", 0) + "," + 
+     $( "#slider-range" ).slider( "values", 1 ) );
+  });
+
+</script>
+{% endblock %}
+
+{% block load_map %}
+
+      // LOAD COINS MAP MARKERS
+      {% if coins_list %}
+          {% for coin in coins_list %}
+          {% if coin.find_location.lon %}
+          var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+	  '<a href="{% url 'detail' coin.id %}">'+
+          '<h1 id="firstHeading" class="firstHeading">'+
+	  '{{ coin.title }}</h1>'+
+	  '</a>'+
+          '<div id="bodyContent">'+
+          '<p><b>{{ coin.obverse_legend }}</b></p>'
+	  '</div>'+
+	'</div>';
+
+      var infowindow = new google.maps.InfoWindow({
+      content: contentString
+      }); 
+
+      var lat_lng = new google.maps.LatLng({{ coin.find_location.lat }}, 
+                                           {{ coin.find_location.lon }}
+                                          );
+      
+      bounds.extend(lat_lng);
+
+      var marker = new google.maps.Marker({
+      position: lat_lng,
+      map: map,
+      });
+      
+      google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+      });
+    
+      {% endif %}
+      {% endfor %}
+      {% else %}
+      bounds.extend(new google.maps.LatLng(41.9, 12.5));
+      {% endif %}
+
+{% endblock %}
+
 {% block content %}
 
-<div id="the_viewer" class="well" style="border-color: #13132E; background: rgba(192, 192, 192, 0.2); padding: 0px; position: relative; left: auto; right: auto; margin: 0 auto 20px; z-ind\
-ex: 1; max-width: 93%; height: 70%; overflow-y: scroll; margin-left: 0px; width: 100%; top: 0;">
 
+  <form id="filter-form" method="get" action="/coins/view_collection.html" class="form-inline">
+    <input style="visibility:hidden; width: 0px; height: 0px; margin: 0;" id="range_val" name="range"></P>
+    <div class="form-group spaced">
+      <div style="width: 200px;">
+	<label for="range" id="amount"></label>
+	<div id="slider-range"></div>
+      </div>
+    </div>
+    <button id="filter-button" type="submit" class="btn btn-default spaced">Filter</button>      
+  </form>
+
+
+<div id="the_viewer" class="well" style="height: 70%;">
+  <div id="map-canvas"/>
 </div>
 
 {% endblock %}

@@ -37,7 +37,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'bootstrap3',
+    'south',
     'coins',
 )
 
@@ -87,3 +89,12 @@ STATIC_ROOT = '~/code/art2artifact/coins/static/'
 
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
+# Amazon S3 Buckets
+AWS_STORAGE_BUCKET_NAME = 'coindb_coinphotos'
+AWS_ACCESS_KEY_ID = 'AKIAJZXERSDXSDBNK56Q'
+AWS_SECRET_ACCESS_KEY = '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'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+# South Schema Migrations
+SOUTH_TESTS_MIGRATE = False

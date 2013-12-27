@@ -1,0 +1,15 @@
+{% extends "coins/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+{% if recently_added_coins_list %}
+    <ul>
+      {% for coin in recently_added_coins_list %}
+          <li><a href="{% url 'detail' coin.id %}">{{ coin.title }}</a></li>
+      {% endfor %}
+    </ul>
+{% else %}
+    <p>No coins have been added recently.</p>
+{% endif %}
+
+{% endblock %}
