@@ -6,6 +6,9 @@
 {% block load_js %}
 <script type="text/javascript">
 $(document).ready(function() {        
+    // carousel starter
+    $('.carousel').carousel();
+
     // map/carousel swapper
     $('#swap-button').click(function() {
         var bigHtml = $('#big-div').html();

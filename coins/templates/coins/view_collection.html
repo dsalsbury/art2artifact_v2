@@ -39,6 +39,11 @@
      $( "#slider-range" ).slider( "values", 1 ) );
   });
 
+  $('#tabs-bar a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')			   
+  })
+
 </script>
 {% endblock %}
 
@@ -89,7 +94,7 @@
 
 {% block content %}
 
-
+<div class="row" style="margin: 0">
   <form id="filter-form" method="get" action="/coins/view_collection.html" class="form-inline">
     <input style="visibility:hidden; width: 0px; height: 0px; margin: 0;" id="range_val" name="range"></P>
     <div class="form-group spaced">
@@ -101,9 +106,29 @@
     <button id="filter-button" type="submit" class="btn btn-default spaced">Filter</button>      
   </form>
 
+  <div class="pull-right">
+    <ul class="nav nav-tabs" id="tabs-bar">
+      <li class="active"><a href="#map" data-toggle="tab">Map</a></li>
+      <li><a href="#images" data-toggle="tab">Images</a></li>
+    </ul>  
+  </div>
 
-<div id="the_viewer" class="well" style="height: 70%;">
-  <div id="map-canvas"/>
 </div>
 
+<div id="the_viewer" class="tab-content" style="height: 70%;">
+  <div class="tab-pane fade in active" id="map">
+    <div id="map-canvas"></div>
+  </div>
+  <div class="tab-pane fade" id="images" style="margin: 20px;">
+    <div class="row">
+      {% for image in images_list %}
+      <div class="col-xs-6 col-md-3">
+	<a href="{% url 'detail' image.coin.id %}" class="thumbnail">
+	  <img src="{{ image.image.url }}">
+	</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}
