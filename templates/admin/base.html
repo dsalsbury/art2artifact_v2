@@ -9,7 +9,6 @@
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
 <head>
 <title>{% block title %}{% endblock %}</title>
-<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />
 {% block extrastyle %}{% endblock %}
 <!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
 {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
@@ -41,28 +40,28 @@
         {% if user.is_active and user.is_staff %}
         <div id="main_navbar" class="collapse navbar-collapse">
 	<div id="user-tools">
+	  <ul class="nav navbar-nav">
+	    <li><a href="/coins/">Home</a></li>
+	    <li><a href="/coins/view_collection.html">View Collection</a></li>
+	  </ul>
+	  <ul class="nav navbar-nav navbar-right">
             {% block welcome-msg %}
-                {% trans 'Welcome,' %}
-                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
-            {% endblock %}
-            {% block userlinks %}
-                {% url 'django-admindocs-docroot' as docsroot %}
-                {% if docsroot %}
-                    <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
-                {% endif %}
-		    <ul class="nav navbar-nav navbar-right">
-		      <li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>
-			<ul class="dropdown-menu">
-			  {% if user.has_usable_password %}
-			  <li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>
-			  {% endif %}
-			  <li><a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a></li>
-			</ul>
-		      </li>
-		    </ul>
-            {% endblock %}
+	    <li><a>Welcome {% firstof user.get_short_name user.get_username %}!</a></li>
+	    {% endblock %}
+	    {% block buserlinks %}
+	    <li class="dropdown">
+	      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>
+	      <ul class="dropdown-menu">
+		{% if user.has_usable_password %}
+		<li><a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a></li>
+		{% endif %}
+		<li><a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a></li>
+	      </ul>
+	    </li>
+	  </ul>
+	  {% endblock %}
         </div>
+	</div>
         {% endif %}
         {% block nav-global %}{% endblock %}
       </nav>
@@ -87,7 +86,6 @@
     <div id="push">
     <div id="content" class="{% block coltype %}colM{% endblock %}">
         {% block pretitle %}{% endblock %}
-        {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
         {% block content %}
         {% block object-tools %}{% endblock %}
         {{ content }}
