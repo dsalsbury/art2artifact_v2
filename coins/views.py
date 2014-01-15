@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-from coins.models import Coin, Image
+from coins.models import Coin, Image, Corpus
 
 # Create your views here.
 def index(request):
@@ -33,6 +33,13 @@ def view_collection(request):
 
     return render(request, 'coins/view_collection.html', context)
 
+def view_corpora(request):
+    corpora_list = Corpus.objects.all()
+
+    template = loader.get_template('coins/view_corpora.html')
+    context = {'corpora_list': corpora_list}
+
+    return render(request, 'coins/view_corpora.html', context)
 
 def coin(request, coin_id):
     coin = get_object_or_404(Coin, id=coin_id)
@@ -41,3 +48,11 @@ def coin(request, coin_id):
                'images_list': images_list,
                }
     return render(request, 'coins/detail.html', context)
+
+def corpus(request, coin_id):
+    corpus = get_object_or_404(Corpus, id=corups_id)
+    images_list = Image.objects.filter(corpus=corpus)
+    context = {'corpus': corpus,
+               'images_list': images_list,
+               }
+    return render(request, 'coins/corpus.html', context)

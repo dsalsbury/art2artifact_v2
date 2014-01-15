@@ -51,20 +51,19 @@ $(document).ready(function() {
 
 {% block content %}
 <div class="well col-md-3" style="height: 80%;">
-  <h1>{{ coin.title }}</h1>
-
-  <p><b>Date:</b> {{ coin.date_start }}-{{ coin.date_end }}</p>
-  <p><b>Denomination:</b> {{ coin.denomination }}</p>
-  <p><b>Minting Authority:</b> {{ coin.minting_authority }}</p>
-  <p><b>Minted:</b> {{ coin.mint_location.name }}</p>
-  <p><b>Found:</b> {{ coin.find_location.name }}</p>
-  <p><b>Obverse Legend:</b> {{ coin.obverse_legend }}</p>
-  <p><b>Reverse Legend:</b> {{ coin.reverse_legend }}</p>
-  <p><b>Bibliography:</b> {{ coin.bibliography }}</p>
-
+    <h1>{{ coin.title }}</h1>
+    
+    <p><b>Date:</b> {{ coin.date_start }}-{{ coin.date_end }}</p>
+    <p><b>Denomination:</b> {{ coin.denomination }}</p>
+    <p><b>Minting Authority:</b> {{ coin.minting_authority }}</p>
+    <p><b>Minted:</b> {{ coin.mint_location.name }}</p>
+    <p><b>Found:</b> {{ coin.find_location.name }}</p>
+    <p><b>Obverse Legend:</b> {{ coin.obverse_legend }}</p>
+    <p><b>Reverse Legend:</b> {{ coin.reverse_legend }}</p>
+    <p><b>Bibliography:</b> {{ coin.bibliography }}</p>
+    
   <button id="swap-button" type="button" class="btn btn-default">Swap!</button>
-
-  <div id="small-div" style="height: 40%;">
+  <div id="small-div" style="height: 30%;">
   <div id="coin-carousel" class="carousel slide">
     <!-- Indicators -->
     <ol class="carousel-indicators">

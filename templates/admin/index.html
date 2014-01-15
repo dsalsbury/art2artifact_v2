@@ -14,34 +14,24 @@
 
 {% if app_list %}
 <div class="jumbotron">
-    {% for app in app_list %}
-        <div class="app-{{ app.app_label }} module">
-        <caption>
-            <a href="{{ app.app_url }}" class="section" title="{% blocktrans with name=app.name %}Models in the {{ name }} application{% endblocktrans %}">
-                {% blocktrans with name=app.name %}{{ name }}{% endblocktrans %}
-            </a>
-        </caption>
-        {% for model in app.models %}
-            {% if model.admin_url %}
-                <th scope="row"><a href="{{ model.admin_url }}">{{ model.name }}</a></th>
-            {% else %}
-                <th scope="row">{{ model.name }}</th>
-            {% endif %}
 
-            {% if model.add_url %}
-                <td><a href="{{ model.add_url }}" class="addlink">{% trans 'Add' %}</a></td>
-            {% else %}
-                <td>&nbsp;</td>
-            {% endif %}
-
-            {% if model.admin_url %}
-                <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
-            {% else %}
-                <td>&nbsp;</td>
-            {% endif %}
-        {% endfor %}
-        </div>
-    {% endfor %}
+<h3>Users</h3>
+  <button type="button" class="btn btn-default btn-lg">
+    <a href="/admin/auth/user" class="section">Users</a>
+  </button>
+  <button type="button" class="btn btn-default btn-lg">
+    <a href="/admin/auth/group" class="section">Groups</a>
+  </button>
+<h3>Coins</h3>
+  <button type="button" class="btn btn-default btn-lg">
+    <a href="/admin/coins/coin" class="section">Coins</a>
+  </button>
+  <button type="button" class="btn btn-default btn-lg">
+    <a href="/admin/coins/corpus" class="section">Corpora</a>
+  </button>
+  <button type="button" class="btn btn-default btn-lg">
+    <a href="/admin/coins/image" class="section">Images</a>
+  </button>
 </div>
 {% else %}
     <p>{% trans "You don't have permission to edit anything." %}</p>
