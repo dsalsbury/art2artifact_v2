@@ -11,4 +11,7 @@ urlpatterns = patterns('',
 
      # ex: /view_collection/
      url(r'^view_collection.html', views.view_collection, name='view_collection'),
+
+     # ex: /view_corpora/
+     url(r'^view_corpora.html', views.view_corpora, name='view_corpora'),                 
 )

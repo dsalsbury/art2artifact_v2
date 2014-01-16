@@ -49,8 +49,8 @@ def coin(request, coin_id):
                }
     return render(request, 'coins/detail.html', context)
 
-def corpus(request, coin_id):
-    corpus = get_object_or_404(Corpus, id=corups_id)
+def corpus(request, corpus_id):
+    corpus = get_object_or_404(Corpus, id=corpus_id)
     images_list = Image.objects.filter(corpus=corpus)
     context = {'corpus': corpus,
                'images_list': images_list,

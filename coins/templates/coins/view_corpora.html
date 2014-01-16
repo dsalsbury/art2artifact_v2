@@ -10,37 +10,22 @@
 {% endblock %}
 
 {% block content %}
-
+{% if corpora_list %}
 <div class="row" style="margin: 0">
-  <form id="filter-form" method="get" action="/coins/view_collection.html" class="form-inline">
-    <input style="visibility:hidden; width: 0px; height: 0px; margin: 0;" id="range_val" name="range"></P>
-    <div class="form-group spaced">
-      <div style="width: 200px;">
-	<label for="range" id="amount"></label>
-	<div id="slider-range"></div>
-      </div>
+  <form class="navbar-form navbar-left" role="search">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search">
     </div>
-    <button id="filter-button" type="submit" class="btn btn-default spaced">Filter</button>      
+    <button type="submit" class="btn btn-default">Submit</button>
   </form>
-
-  <div class="pull-right">
-    <ul class="nav nav-tabs" id="tabs-bar">
-      <li class="active"><a href="#map" data-toggle="tab">Map</a></li>
-      <li><a href="#images" data-toggle="tab">Images</a></li>
-    </ul>  
-  </div>
-
 </div>
 
 <div id="the_viewer" class="tab-content" style="height: 70%;">
-  <div class="tab-pane fade in active" id="map">
-    <div id="map-canvas"></div>
-  </div>
-  <div class="tab-pane fade" id="images" style="margin: 20px;">
+  <div class="tab-pane fade in active" id="images" style="margin: 20px;">
     <div class="row">
       {% for corpus in corpora_list %}
       <div class="col-xs-6 col-md-3">
-	<a href="#" class="thumbnail">
+	<a href="{% url 'corpus' corpus.id %}" class="thumbnail">
 	  {{ corpus.title }}
 	</a>
       </div>
@@ -48,4 +33,7 @@
     </div>
   </div>
 </div>
+{% else %}
+<p>No Corpora have been added yet :(</p>
+{% endif %}
 {% endblock %}

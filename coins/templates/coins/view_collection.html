@@ -93,7 +93,7 @@
 {% endblock %}
 
 {% block content %}
-
+{% if coins_list %}
 <div class="row" style="margin: 0">
   <form id="filter-form" method="get" action="/coins/view_collection.html" class="form-inline">
     <input style="visibility:hidden; width: 0px; height: 0px; margin: 0;" id="range_val" name="range"></P>
@@ -131,4 +131,9 @@
     </div>
   </div>
 </div>
+
+{% else %}
+<p>No coins have been added yet :(</p>
+{% endif %}
+
 {% endblock %}

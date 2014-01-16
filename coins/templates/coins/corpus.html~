@@ -1,0 +1,53 @@
+{% extends "coins/base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ corpus.title }} - Detail{% endblock %}
+
+{% block content %}
+<div class="well col-md-3" style="height: 80%;">
+    <h1>{{ corpus.title }}</h1>
+    
+    <p><b>Date created:</b>{{ corpus.date_created }}</p>
+    <p><b>Description:</b>{{ corpus.description }}</p>
+    
+</div>
+
+<div id="big-div" class="well col-md-8" style="height: 80%; margin-left: 40px; padding: 0;">
+  <div id="coin-carousel" class="carousel slide">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      {% for image in images_list %}
+      {% if forloop.first %}
+      <li data-target="#coin-carousel" data-slide-to="0" class="active"></li>
+      {% else %}
+      <li data-target="#coin-carousel" data-slide-to="{{ forloop.counter0 }}"></li>
+      {% endif %}
+      {% endfor %}
+    </ol>
+    
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      {% for image in images_list %}
+      {% if forloop.first %}
+      <div class="item active">
+	{% else %}
+	<div class="item">
+	  {% endif %}
+	<img src="{{ image.image.url }}" alt="" style="margin: auto; height: 100%;" >
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#coin-carousel" data-slide="prev">
+      <span class="icon-prev"></span>
+    </a>
+    <a class="right carousel-control" href="#coin-carousel" data-slide="next">
+      <span class="icon-next"></span>
+    </a>
+  </div>
+
+</div>
+ 
+{% if error_message %}<p><strong>{{ error_messgae }}</strong></p>{% endif %}
+{% endblock %}
