@@ -44,3 +44,7 @@ body {
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.img_thumb_add {
+  border: 8px solid navy;
+}

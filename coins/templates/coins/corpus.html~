@@ -13,6 +13,7 @@
 </div>
 
 <div id="big-div" class="well col-md-8" style="height: 80%; margin-left: 40px; padding: 0;">
+  {% if images_list %}
   <div id="coin-carousel" class="carousel slide">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -26,18 +27,20 @@
     </ol>
     
     <!-- Wrapper for slides -->
+
     <div class="carousel-inner">
+
       {% for image in images_list %}
       {% if forloop.first %}
       <div class="item active">
-	{% else %}
+      {% else %}
 	<div class="item">
 	  {% endif %}
 	<img src="{{ image.image.url }}" alt="" style="margin: auto; height: 100%;" >
       </div>
       {% endfor %}
     </div>
-
+ 
     <!-- Controls -->
     <a class="left carousel-control" href="#coin-carousel" data-slide="prev">
       <span class="icon-prev"></span>
@@ -46,8 +49,16 @@
       <span class="icon-next"></span>
     </a>
   </div>
+  {% else %}
+  <center>
+    <h3 style="margin-top: 10%;">
+      No coins have been added to this corpus yet :(
+    </h3>
+    <button class="btn btn-primary btn-large">Add some!</button>
+  </center>
+  {% endif %}
 
 </div>
  
-{% if error_message %}<p><strong>{{ error_messgae }}</strong></p>{% endif %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 {% endblock %}

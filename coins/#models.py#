@@ -65,7 +65,7 @@ class Corpus(models.Model):
     title             = models.CharField(max_length=100)
     date_created      = models.DateTimeField('date created')
     description       = models.CharField(max_length=500, null=True)
-    created_by        = models.ForeignKey(User, default="tester")
+    created_by        = models.CharField(max_length=100, null=True)
 
     def __unicode__(self):
         return self.title
