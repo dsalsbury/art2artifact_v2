@@ -93,8 +93,8 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
 # Amazon S3 Buckets
 AWS_STORAGE_BUCKET_NAME = 'coindb_coinphotos'
-AWS_ACCESS_KEY_ID = 'AKIAJZXERSDXSDBNK56Q'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'AKIAIC247W4Q6A253L6Q'
+AWS_SECRET_ACCESS_KEY = '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'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # South Schema Migrations
