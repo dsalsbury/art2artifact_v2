@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-from coins.models import Coin, Image, Corpus
+from coins.models import Coin, Image, Corpus, coin_in_corpus
 
 # Create your views here.
 def index(request):
@@ -33,6 +33,24 @@ def view_collection(request):
 
     return render(request, 'coins/view_collection.html', context)
 
+def add_to_corpus(request, corpus_id): 
+    corpus = get_object_or_404(Corpus, id=corpus_id)            
+
+    images_list = []
+    coins_list = Coin.objects.all()
+    images_list = []
+    for coin in coins_list:
+        image = Image.objects.filter(coin=coin)
+        if len(image) > 0:
+            images_list.append(image[0])
+
+    template = loader.get_template('coins/add_to_corpus.html')
+    context = {'corpus_id': corpus_id,
+               'coins_list': coins_list,
+               'images_list': images_list}
+
+    return render(request, 'coins/add_to_corpus.html', context)
+
 def view_corpora(request):
     corpora_list = Corpus.objects.all()
 
@@ -51,8 +69,23 @@ def coin(request, coin_id):
 
 def corpus(request, corpus_id):
     corpus = get_object_or_404(Corpus, id=corpus_id)
-    images_list = Image.objects.filter(corpus=corpus)
+    # add coins if needed
+    if 'coins' in request.GET:
+        coins = request.GET['coins'].split(',');
+        for coin in coins:
+            coin_in_corpus.objects.get_or_create(coin_id=coin, corpus_id=corpus.id)
+
+    images_list = list(Image.objects.filter(corpus=corpus))
+    coins_list = coin_in_corpus.objects.filter(corpus_id=corpus_id)
+    coins = []
+    for coin in coins_list:
+        coins.append(get_object_or_404(Coin, id=coin.coin_id))
+        image = Image.objects.filter(coin=coin.coin_id)
+        if len(image) > 0:
+            images_list.append(image[0])
+
     context = {'corpus': corpus,
                'images_list': images_list,
+               'coins_list': coins,
                }
     return render(request, 'coins/corpus.html', context)

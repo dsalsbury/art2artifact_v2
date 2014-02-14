@@ -3,15 +3,13 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-from coins.models import Coin, Image, Corpus, coin_in_corpus
+from coins.models import Coin, Corpus, coin_in_corpus
 
 # Create your views here.
 def index(request):
     recently_added_coins_list = Coin.objects.order_by('-pub_date')[:5]
-    images_list = Image.objects.all()
     template = loader.get_template('coins/index.html')
-    context = {'recently_added_coins_list': recently_added_coins_list,
-               'images_list': images_list}
+    context = {}
     return render(request, 'coins/index.html', context)
 
 def view_collection(request):
